@@ -104,11 +104,11 @@
     }
 
     .slide {
-      width: min(1120px, 100%);
-      height: min(700px, calc(100vh - 158px));
-      min-height: 520px;
+      width: min(1460px, calc(100vw - 160px));
+      height: min(820px, calc(100vh - 150px));
+      min-height: 560px;
       display: none;
-      padding: clamp(24px, 4vw, 54px);
+      padding: clamp(24px, 3vw, 44px);
       border: 2px solid var(--line);
       border-radius: var(--radius);
       background:
@@ -169,7 +169,7 @@
 
     h2 {
       max-width: 860px;
-      font-size: clamp(2.6rem, 6vw, 5.5rem);
+      font-size: clamp(2.6rem, 5vw, 5rem);
     }
 
     h3 {
@@ -177,10 +177,10 @@
     }
 
     .lead {
-      max-width: 760px;
+      max-width: 920px;
       margin: 0;
       color: var(--muted);
-      font-size: clamp(1.15rem, 2vw, 1.65rem);
+      font-size: clamp(1.12rem, 1.7vw, 1.5rem);
       line-height: 1.3;
     }
 
@@ -225,6 +225,20 @@
       box-shadow: 5px 5px 0 rgba(51, 45, 35, 0.14);
     }
 
+    .resource-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .resource-links .card {
+      padding: 14px 16px;
+    }
+
+    .resource-links a {
+      overflow-wrap: anywhere;
+    }
+
     .card p,
     .timer-card p {
       margin: 10px 0 0;
@@ -266,7 +280,7 @@
 
     .prompt {
       margin: 0;
-      min-height: 154px;
+      min-height: 132px;
       white-space: pre-wrap;
       padding: 18px;
       border: 2px solid var(--line);
@@ -277,6 +291,10 @@
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
       font-size: clamp(0.92rem, 1.35vw, 1.06rem);
       line-height: 1.45;
+    }
+
+    .dense-slide .prompt {
+      min-height: 112px;
     }
 
     .copy-row,
@@ -399,12 +417,14 @@
 
       .slide,
       .slide.active {
+        width: 100%;
         height: auto;
         min-height: calc(100vh - 160px);
       }
 
       .grid-2,
-      .grid-3 {
+      .grid-3,
+      .resource-links {
         grid-template-columns: 1fr;
       }
 
@@ -488,7 +508,7 @@ Help me clarify the product idea.</pre>
         <p class="lead">Look for: pages, components, data shape, smallest useful feature, and steps.</p>
       </article>
 
-      <article class="slide" data-title="Demo 3 Small Feature">
+      <article class="slide dense-slide" data-title="Demo 3 Small Feature">
         <span class="kicker">Slide 5</span>
         <h2>Demo 3: Add One Visible Feature</h2>
         <p class="lead">Use the starter project. The live demo feature is ingredient search, because people can see it working immediately.</p>
@@ -501,11 +521,19 @@ Keep the change small and explain what files you changed.</pre>
             <span class="copy-status" aria-live="polite"></span>
           </div>
         </div>
-        <p class="lead">Starter project: <a href="https://github.com/ZhiweiChen-coder/codex-recipe-finder-starter.git">ZhiweiChen-coder/codex-recipe-finder-starter.git</a></p>
-        <p class="lead">Not familiar with GitHub? Download the backup zip from <a href="https://drive.google.com/file/d/1wpOzKtC5tVR1zqL6GckB1pvphOldMsKO/view?usp=drive_link">Google Drive</a>.</p>
+        <div class="resource-links">
+          <div class="card">
+            <h3>Starter project</h3>
+            <p><a href="https://github.com/ZhiweiChen-coder/codex-recipe-finder-starter.git">ZhiweiChen-coder/codex-recipe-finder-starter.git</a></p>
+          </div>
+          <div class="card">
+            <h3>Backup zip</h3>
+            <p>Not familiar with GitHub? Use the <a href="https://drive.google.com/file/d/1wpOzKtC5tVR1zqL6GckB1pvphOldMsKO/view?usp=drive_link">Google Drive download</a>.</p>
+          </div>
+        </div>
       </article>
 
-      <article class="slide" data-title="Review And Handoff">
+      <article class="slide dense-slide" data-title="Review And Handoff">
         <span class="kicker">Slide 6</span>
         <h2>Review, Then Handoff</h2>
         <div class="grid-2">
