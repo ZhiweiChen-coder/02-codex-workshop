@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Recipe Finder Workshop</title>
+  <style>
+    :root {
+      --ink: #19150f;
+      --muted: #6d6252;
+      --paper: #f5efe3;
+      --panel: #fffaf0;
+      --line: #332d23;
+      --blue: #245fc8;
+      --green: #0b7b5e;
+      --red: #c44733;
+      --yellow: #efbd42;
+      --shadow: 8px 8px 0 rgba(51, 45, 35, 0.95);
+      --soft: 0 22px 55px rgba(35, 28, 18, 0.16);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(51, 45, 35, 0.05) 1px, transparent 1px) 0 0 / 30px 30px,
+        linear-gradient(rgba(51, 45, 35, 0.045) 1px, transparent 1px) 0 0 / 30px 30px,
+        radial-gradient(circle at 92% 10%, rgba(36, 95, 200, 0.16), transparent 28%),
+        radial-gradient(circle at 12% 86%, rgba(11, 123, 94, 0.14), transparent 28%),
+        var(--paper);
+      font-family: Optima, Candara, "Avenir Next", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      overflow: hidden;
+    }
+
+    button {
+      color: inherit;
+      font: inherit;
+    }
+
+    .shell {
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 20px clamp(16px, 3vw, 40px);
+      gap: 16px;
+    }
+
+    .topbar,
+    .bottombar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--yellow);
+      box-shadow: 4px 4px 0 var(--line);
+      font-family: Georgia, serif;
+      font-weight: 800;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.1;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .stage {
+      min-height: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .slide {
+      width: min(1120px, 100%);
+      height: min(700px, calc(100vh - 158px));
+      min-height: 520px;
+      display: none;
+      padding: clamp(24px, 4vw, 54px);
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(255, 250, 240, 0.96), rgba(245, 239, 227, 0.9)),
+        var(--panel);
+      box-shadow: var(--soft), var(--shadow);
+      overflow: auto;
+    }
+
+    .slide.active {
+      display: grid;
+      align-content: center;
+      gap: 22px;
+      animation: arrive 260ms ease both;
+    }
+
+    @keyframes arrive {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.995);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: Georgia, "Iowan Old Style", Cambria, serif;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 0.96;
+    }
+
+    h1 {
+      max-width: 840px;
+      font-size: clamp(3.1rem, 9vw, 7.6rem);
+    }
+
+    h2 {
+      max-width: 860px;
+      font-size: clamp(2.6rem, 6vw, 5.5rem);
+    }
+
+    h3 {
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.15rem, 2vw, 1.65rem);
+      line-height: 1.3;
+    }
+
+    .large-url {
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+      padding: 16px 18px;
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: #12110d;
+      color: #fff7e8;
+      box-shadow: 6px 6px 0 var(--blue);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: clamp(1.08rem, 2.3vw, 2rem);
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+      text-decoration: none;
+    }
+
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card,
+    .prompt-card,
+    .timer-card {
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: 5px 5px 0 rgba(51, 45, 35, 0.14);
+    }
+
+    .card p,
+    .timer-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.38;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      font-weight: 800;
+    }
+
+    .badge {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: var(--yellow);
+      font-weight: 900;
+    }
+
+    .prompt {
+      margin: 0;
+      min-height: 154px;
+      white-space: pre-wrap;
+      padding: 18px;
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: #12110d;
+      color: #fff7e8;
+      box-shadow: 6px 6px 0 var(--yellow);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: clamp(0.92rem, 1.35vw, 1.06rem);
+      line-height: 1.45;
+    }
+
+    .copy-row,
+    .timer-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .action-button,
+    .ghost-button,
+    .nav-button {
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 rgba(51, 45, 35, 0.18);
+      font-weight: 900;
+    }
+
+    .action-button,
+    .ghost-button {
+      min-height: 40px;
+      padding: 8px 12px;
+    }
+
+    .action-button {
+      background: var(--yellow);
+      box-shadow: 4px 4px 0 var(--line);
+    }
+
+    .copy-status {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .timer-face {
+      display: grid;
+      place-items: center;
+      min-height: 140px;
+      margin: 12px 0;
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      font-family: Georgia, "Iowan Old Style", Cambria, serif;
+      font-size: clamp(3rem, 8vw, 5.8rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-button {
+      width: 44px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+    }
+
+    .count {
+      min-width: 66px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .dot {
+      width: 25px;
+      height: 25px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: #ffffff;
+      color: transparent;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: var(--red);
+      box-shadow: 3px 3px 0 var(--line);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: right;
+      font-weight: 800;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        overflow: auto;
+      }
+
+      .shell {
+        min-height: 100%;
+      }
+
+      .topbar,
+      .bottombar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .stage {
+        place-items: stretch;
+      }
+
+      .slide,
+      .slide.active {
+        height: auto;
+        min-height: calc(100vh - 160px);
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand" aria-label="Workshop title">
+        <div class="mark">C</div>
+        <div>
+          <strong>Recipe Finder Workshop</strong>
+          <span>One mini project, then your own topic</span>
+        </div>
+      </div>
+      <a class="large-url" href="https://openai.com/codex/">openai.com/codex</a>
+    </header>
+
+    <section class="stage" aria-live="polite">
+      <article class="slide active" data-title="Download Codex">
+        <span class="kicker">Slide 1</span>
+        <h1>Download Codex</h1>
+        <p class="lead">Go to <strong>openai.com/codex</strong>, download Codex, and sign in. We will use one starter project to learn the loop, then you can try your own topic.</p>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Primary</h3>
+            <p>Go to download if you did not download it yet:</p>
+            <p><a href="https://openai.com/codex/">openai.com/codex</a></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Recipe Finder Starter">
+        <span class="kicker">Slide 2</span>
+        <h2>Mini Project Demo: Recipe Finder</h2>
+        <p class="lead">Recipe Finder is familiar, visual, safe, and small enough to show a full Codex workflow in one room.</p>
+        <div class="grid-2">
+          <ul class="list">
+            <li><span class="badge">1</span> Start from a messy idea</li>
+            <li><span class="badge">2</span> Ask Codex for a simple plan</li>
+            <li><span class="badge">3</span> Add one visible feature</li>
+          </ul>
+          <ul class="list">
+            <li><span class="badge">4</span> Review the changed files</li>
+            <li><span class="badge">5</span> Ask for a handoff summary</li>
+            <li><span class="badge">6</span> Try the same loop yourself</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Demo 1 Clarify">
+        <span class="kicker">Slide 3</span>
+        <h2>Demo 1: Clarify The Idea</h2>
+        <p class="lead">Start before code. Let Codex turn a rough idea into a product direction everyone can understand.</p>
+        <div class="prompt-card">
+          <pre class="prompt" data-copy-text>I want to build a simple recipe website for busy people who want to find meals based on ingredients they already have.
+Help me clarify the product idea.</pre>
+          <div class="copy-row">
+            <button class="action-button copy-prompt" type="button">Copy prompt</button>
+            <span class="copy-status" aria-live="polite"></span>
+          </div>
+        </div>
+        <p class="lead">Look for: target user, problem, MVP, features, and first task.</p>
+      </article>
+
+      <article class="slide" data-title="Demo 2 Plan">
+        <span class="kicker">Slide 4</span>
+        <h2>Demo 2: Ask For A Plan</h2>
+        <p class="lead">The key habit: do not ask Codex to rush into changes. Shape the plan first.</p>
+        <div class="prompt-card">
+          <pre class="prompt" data-copy-text>Turn this into a small implementation plan.</pre>
+          <div class="copy-row">
+            <button class="action-button copy-prompt" type="button">Copy prompt</button>
+            <span class="copy-status" aria-live="polite"></span>
+          </div>
+        </div>
+        <p class="lead">Look for: pages, components, data shape, smallest useful feature, and steps.</p>
+      </article>
+
+      <article class="slide" data-title="Demo 3 Small Feature">
+        <span class="kicker">Slide 5</span>
+        <h2>Demo 3: Add One Visible Feature</h2>
+        <p class="lead">Use the starter project. The live demo feature is ingredient search, because people can see it working immediately.</p>
+        <div class="prompt-card">
+          <pre class="prompt" data-copy-text>Inspect this starter recipe website.
+Add a simple ingredient search filter.
+Keep the change small and explain what files you changed.</pre>
+          <div class="copy-row">
+            <button class="action-button copy-prompt" type="button">Copy prompt</button>
+            <span class="copy-status" aria-live="polite"></span>
+          </div>
+        </div>
+        <p class="lead">Starter project: <a href="https://github.com/ZhiweiChen-coder/codex-recipe-finder-starter.git">ZhiweiChen-coder/codex-recipe-finder-starter.git</a></p>
+      </article>
+
+      <article class="slide" data-title="Review And Handoff">
+        <span class="kicker">Slide 6</span>
+        <h2>Review, Then Handoff</h2>
+        <div class="grid-2">
+          <div class="prompt-card">
+            <h3>Review prompt</h3>
+            <pre class="prompt" data-copy-text>What did you change?
+What should I review carefully?
+What could break?</pre>
+            <div class="copy-row">
+              <button class="action-button copy-prompt" type="button">Copy prompt</button>
+              <span class="copy-status" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="prompt-card">
+            <h3>Handoff prompt</h3>
+            <pre class="prompt" data-copy-text>Write a short summary of what changed, how to test it, and what to improve next.</pre>
+            <div class="copy-row">
+              <button class="action-button copy-prompt" type="button">Copy prompt</button>
+              <span class="copy-status" aria-live="polite"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Participant Practice">
+        <span class="kicker">Slide 7</span>
+        <h2>Now Try Your Topic</h2>
+        <p class="lead">Use your own product idea, website, README, workflow, or repo. If you are stuck, continue with Recipe Finder.</p>
+        <div class="grid-2">
+          <div class="timer-card">
+            <h3>Practice Timer</h3>
+            <div class="timer-face" id="timerFace">29:00</div>
+            <div class="timer-buttons">
+              <button class="action-button" type="button" data-minutes="29">29 min</button>
+              <button class="ghost-button" type="button" data-minutes="15">15 min</button>
+              <button class="ghost-button" type="button" id="pauseTimer">Pause</button>
+              <button class="ghost-button" type="button" id="resetTimer">Reset</button>
+            </div>
+          </div>
+          <ul class="list">
+            <li><span class="badge">1</span> Clarify</li>
+            <li><span class="badge">2</span> Plan</li>
+            <li><span class="badge">3</span> Improve one thing</li>
+            <li><span class="badge">4</span> Review</li>
+            <li><span class="badge">5</span> Summarise next step</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Mini Showcase">
+        <span class="kicker">Slide 8</span>
+        <h2>Share 3-5 Examples</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Start</h3>
+            <p>What did you start with?</p>
+          </div>
+          <div class="card">
+            <h3>Codex</h3>
+            <p>What did Codex produce?</p>
+          </div>
+          <div class="card">
+            <h3>Next</h3>
+            <p>What would you ask Codex next?</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Wrap">
+        <span class="kicker">Slide 9</span>
+        <h2>The Codex Build Loop</h2>
+        <ul class="list">
+          <li><span class="badge">1</span> Idea</li>
+          <li><span class="badge">2</span> Plan</li>
+          <li><span class="badge">3</span> Small Change</li>
+          <li><span class="badge">4</span> Review</li>
+          <li><span class="badge">5</span> Next Step</li>
+        </ul>
+        <p class="lead">The win is not complexity. The win is knowing how to move from a rough idea to one useful, reviewable result.</p>
+      </article>
+    </section>
+
+    <footer class="bottombar">
+      <div class="controls" aria-label="Slide navigation">
+        <button class="nav-button" id="prev" type="button" aria-label="Previous slide">&lt;</button>
+        <span class="count" id="count">1 / 9</span>
+        <button class="nav-button" id="next" type="button" aria-label="Next slide">&gt;</button>
+      </div>
+      <nav class="dots" id="dots" aria-label="Go to workshop slide"></nav>
+      <div class="hint">Use arrow keys, space, Home, End</div>
+    </footer>
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const count = document.querySelector("#count");
+    const dots = document.querySelector("#dots");
+    const prev = document.querySelector("#prev");
+    const next = document.querySelector("#next");
+    const timerFace = document.querySelector("#timerFace");
+    let current = 0;
+    let timerSeconds = 29 * 60;
+    let timerId = null;
+
+    slides.forEach((slide, index) => {
+      const dot = document.createElement("button");
+      dot.className = "dot";
+      dot.type = "button";
+      dot.textContent = String(index + 1);
+      dot.setAttribute("aria-label", `Go to slide ${index + 1}: ${slide.dataset.title}`);
+      dot.addEventListener("click", () => showSlide(index));
+      dots.appendChild(dot);
+    });
+
+    const dotButtons = Array.from(document.querySelectorAll(".dot"));
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("active", slideIndex === current);
+      });
+      dotButtons.forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === current);
+      });
+      count.textContent = `${current + 1} / ${slides.length}`;
+      document.title = `${slides[current].dataset.title} - Recipe Finder Workshop`;
+    }
+
+    prev.addEventListener("click", () => showSlide(current - 1));
+    next.addEventListener("click", () => showSlide(current + 1));
+
+    document.addEventListener("keydown", (event) => {
+      const tag = event.target.tagName.toLowerCase();
+      if (tag === "button") return;
+
+      if (event.key === "ArrowRight" || event.key === " ") {
+        event.preventDefault();
+        showSlide(current + 1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showSlide(current - 1);
+      }
+
+      if (event.key === "Home") {
+        event.preventDefault();
+        showSlide(0);
+      }
+
+      if (event.key === "End") {
+        event.preventDefault();
+        showSlide(slides.length - 1);
+      }
+    });
+
+    document.querySelectorAll(".copy-prompt").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const card = button.closest(".prompt-card");
+        const prompt = card.querySelector("[data-copy-text]").textContent;
+        const status = card.querySelector(".copy-status");
+        try {
+          await navigator.clipboard.writeText(prompt);
+          status.textContent = "Copied";
+        } catch {
+          status.textContent = "Select and copy the prompt";
+        }
+      });
+    });
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60).toString().padStart(2, "0");
+      const rest = (seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${rest}`;
+    }
+
+    function renderTimer() {
+      timerFace.textContent = formatTime(timerSeconds);
+    }
+
+    function startTimer(minutes) {
+      timerSeconds = minutes * 60;
+      clearInterval(timerId);
+      timerId = setInterval(() => {
+        timerSeconds = Math.max(0, timerSeconds - 1);
+        renderTimer();
+        if (timerSeconds === 0) clearInterval(timerId);
+      }, 1000);
+      renderTimer();
+    }
+
+    document.querySelectorAll("[data-minutes]").forEach((button) => {
+      button.addEventListener("click", () => startTimer(Number(button.dataset.minutes)));
+    });
+
+    document.querySelector("#pauseTimer").addEventListener("click", () => {
+      clearInterval(timerId);
+      timerId = null;
+    });
+
+    document.querySelector("#resetTimer").addEventListener("click", () => {
+      clearInterval(timerId);
+      timerId = null;
+      timerSeconds = 29 * 60;
+      renderTimer();
+    });
+
+    renderTimer();
+    showSlide(0);
+  </script>
+</body>
+</html>
