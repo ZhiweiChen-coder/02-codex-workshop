@@ -5,7 +5,7 @@
 - Confirm Codex download link is visible: `openai.com/codex`.
 - Have the Recipe Finder starter project ready.
 - Have the GitHub repo link ready: `https://github.com/ZhiweiChen-coder/codex-recipe-finder-starter.git`.
-- Have a Google Drive zip backup ready.
+- Have the Google Drive zip backup ready: `https://drive.google.com/file/d/1wpOzKtC5tVR1zqL6GckB1pvphOldMsKO/view?usp=drive_link`.
 - Remind attendees that no private or sensitive data is needed.
 - Tell attendees they can use their own topic later, or continue with Recipe Finder.
 

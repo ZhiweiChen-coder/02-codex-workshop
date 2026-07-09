@@ -40,7 +40,7 @@ starter-projects/codex-recipe-finder-starter
 Distribution:
 
 - Primary: GitHub repo `https://github.com/ZhiweiChen-coder/codex-recipe-finder-starter.git`
-- Backup: Google Drive zip
+- Backup: Google Drive zip `https://drive.google.com/file/d/1wpOzKtC5tVR1zqL6GckB1pvphOldMsKO/view?usp=drive_link`
 - No setup required: open `src/index.html`
 
 ## Core Workflow
