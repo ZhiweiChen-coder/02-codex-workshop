@@ -433,19 +433,437 @@
         display: none;
       }
     }
+
+    /* OpenAI-inspired community event theme */
+    :root {
+      --ink: #0d0d0d;
+      --muted: #676767;
+      --paper: #f7f7f8;
+      --panel: #ffffff;
+      --line: #d9d9de;
+      --blue: #0d0d0d;
+      --green: #10a37f;
+      --red: #10a37f;
+      --yellow: #e7f7f2;
+      --shadow: none;
+      --soft: 0 18px 60px rgba(0, 0, 0, 0.08);
+      --radius: 8px;
+    }
+
+    body {
+      background: var(--paper);
+      font-family: "OpenAI Sans", "Helvetica Neue", Helvetica, sans-serif;
+    }
+
+    .shell {
+      padding: 14px clamp(20px, 2.2vw, 40px) 18px;
+      gap: 12px;
+    }
+
+    .topbar,
+    .bottombar {
+      width: min(1600px, 100%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      min-height: 104px;
+    }
+
+    .brand {
+      gap: 14px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: none;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .brand strong {
+      font-size: 1rem;
+      font-weight: 650;
+    }
+
+    .brand span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .event-qr {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 10px 7px 7px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .event-qr:hover,
+    .event-qr:focus-visible {
+      border-color: #a8a8ad;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .event-qr img {
+      width: 88px;
+      height: 88px;
+      display: block;
+      background: #ffffff;
+    }
+
+    .event-qr span {
+      display: grid;
+      gap: 3px;
+      max-width: 180px;
+    }
+
+    .event-qr small {
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .event-qr strong {
+      font-size: 0.8rem;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .slide {
+      width: min(1600px, calc(100vw - 64px));
+      height: min(900px, calc(100vh - 210px));
+      padding: clamp(42px, 4.6vw, 76px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: var(--soft);
+    }
+
+    .slide.active {
+      gap: clamp(18px, 2.2vh, 28px);
+      animation: arrive 240ms ease both;
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .kicker {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--green);
+      font-size: 0.74rem;
+      font-weight: 650;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "OpenAI Sans", "Helvetica Neue", Helvetica, sans-serif;
+      letter-spacing: 0;
+    }
+
+    h1,
+    h2 {
+      font-weight: 500;
+      line-height: 0.98;
+    }
+
+    h1 {
+      max-width: 1080px;
+      font-size: clamp(4rem, 8vw, 8.6rem);
+    }
+
+    h2 {
+      max-width: 1120px;
+      font-size: clamp(3rem, 5.2vw, 6.2rem);
+    }
+
+    h3 {
+      font-size: clamp(1.15rem, 1.5vw, 1.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .lead {
+      max-width: 1120px;
+      color: var(--muted);
+      font-size: clamp(1.1rem, 1.55vw, 1.5rem);
+      line-height: 1.42;
+    }
+
+    .large-url,
+    .prompt {
+      border: 1px solid #2d2d2d;
+      border-radius: 8px;
+      background: #171717;
+      color: #ffffff;
+      box-shadow: none;
+    }
+
+    .large-url {
+      padding: 15px 18px;
+      font-size: clamp(1rem, 1.7vw, 1.5rem);
+    }
+
+    .grid-2,
+    .grid-3,
+    .resource-links {
+      gap: 14px;
+    }
+
+    .card,
+    .prompt-card,
+    .timer-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: none;
+    }
+
+    .card {
+      background: #f7f7f8;
+    }
+
+    .card p,
+    .timer-card p {
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration-color: #9b9b9f;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      text-decoration-color: var(--green);
+    }
+
+    .list {
+      gap: 9px;
+    }
+
+    .list li {
+      min-height: 54px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      font-weight: 600;
+    }
+
+    .badge {
+      border: 0;
+      background: var(--yellow);
+      color: #087b60;
+      font-weight: 650;
+    }
+
+    .prompt {
+      min-height: 118px;
+      padding: 18px;
+      font-size: clamp(0.88rem, 1vw, 1rem);
+      line-height: 1.55;
+    }
+
+    .dense-slide .prompt {
+      min-height: 96px;
+    }
+
+    .action-button,
+    .ghost-button,
+    .nav-button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: none;
+      font-weight: 600;
+    }
+
+    .action-button {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .action-button:hover,
+    .ghost-button:hover,
+    .nav-button:hover {
+      background: #eeeeef;
+      color: var(--ink);
+    }
+
+    .copy-status {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .timer-face {
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f7f7f8;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 500;
+    }
+
+    .nav-button {
+      width: 42px;
+      height: 42px;
+      background: #ffffff;
+      font-size: 1.2rem;
+    }
+
+    .count,
+    .hint {
+      font-weight: 550;
+    }
+
+    .dots {
+      gap: 9px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      background: #c7c7ca;
+    }
+
+    .dot.active {
+      background: var(--ink);
+      box-shadow: none;
+      transform: scale(1.25);
+    }
+
+    .hint {
+      font-size: 0.76rem;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        min-height: 80px;
+        align-items: center;
+        flex-direction: row;
+      }
+
+      .brand span,
+      .event-qr span,
+      .hint {
+        display: none;
+      }
+
+      .event-qr {
+        padding: 5px;
+      }
+
+      .event-qr img {
+        width: 68px;
+        height: 68px;
+      }
+
+      .slide,
+      .slide.active {
+        width: 100%;
+        min-height: calc(100vh - 150px);
+        padding: 28px;
+      }
+
+      h1 { font-size: clamp(3.3rem, 16vw, 5.6rem); }
+      h2 { font-size: clamp(2.6rem, 12vw, 4.4rem); }
+    }
+
+    /* Soft Codex blue atmosphere */
+    :root {
+      --codex-blue: #2f67e8;
+      --codex-indigo: #665ce7;
+      --codex-pale: #edf3ff;
+    }
+
+    body {
+      background: linear-gradient(125deg, #d9e8ff 0%, #edf4ff 34%, #e5e8ff 68%, #f5f7ff 100%);
+      background-attachment: fixed;
+    }
+
+    .mark {
+      background: linear-gradient(145deg, #111111 15%, #274ca8 100%);
+    }
+
+    .event-qr {
+      border-color: rgba(47, 103, 232, 0.2);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 8px 24px rgba(50, 79, 150, 0.08);
+    }
+
+    .slide {
+      border-color: rgba(64, 91, 154, 0.22);
+      background: linear-gradient(145deg, #ffffff 0%, #ffffff 76%, #f7f9ff 100%);
+      box-shadow: 0 22px 70px rgba(40, 65, 125, 0.14);
+    }
+
+    .kicker {
+      color: var(--codex-blue);
+    }
+
+    .prompt,
+    .large-url {
+      border-color: #233d78;
+      box-shadow: 0 8px 26px rgba(47, 103, 232, 0.16);
+    }
+
+    .action-button {
+      border-color: #204fc2;
+      background: linear-gradient(135deg, var(--codex-blue), #3157c9);
+    }
+
+    .copy-status {
+      color: var(--codex-blue);
+    }
+
+    .dot.active {
+      background: var(--codex-blue);
+    }
   </style>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
       <div class="brand" aria-label="Workshop title">
-        <div class="mark">C</div>
+        <div class="mark" aria-hidden="true">&gt;_</div>
         <div>
-          <strong>Recipe Finder Workshop</strong>
-          <span>One mini project, then your own topic</span>
+          <strong>Codex Workshop</strong>
+          <span>Codex Community Brisbane</span>
         </div>
       </div>
-      <a class="large-url" href="https://openai.com/codex/">openai.com/codex</a>
+      <a class="event-qr" href="https://02-codex-workshop.vercel.app/" target="_blank" rel="noreferrer" aria-label="Open the Codex workshop website">
+        <img src="assets/02-codex-workshop-qr.svg" alt="QR code for 02-codex-workshop.vercel.app">
+        <span><small>Scan to open</small><strong>02-codex-workshop.vercel.app</strong></span>
+      </a>
     </header>
 
     <section class="stage" aria-live="polite">
