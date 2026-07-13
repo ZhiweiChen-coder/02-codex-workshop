@@ -848,6 +848,298 @@
     .dot.active {
       background: var(--codex-blue);
     }
+
+    /* Codex community deck system */
+    :root {
+      --deck-blue: #3d6ee8;
+      --deck-indigo: #7567df;
+      --deck-ink: #101114;
+      --deck-muted: #5f636b;
+      --deck-line: rgba(37, 54, 91, 0.16);
+      --deck-glass: rgba(255, 255, 255, 0.78);
+    }
+
+    body {
+      background:
+        linear-gradient(118deg, #dbe9ff 0%, #eef4ff 38%, #e8e8ff 72%, #f8f9fd 100%);
+    }
+
+    .shell {
+      padding: 16px clamp(22px, 2.3vw, 42px) 18px;
+      gap: 14px;
+    }
+
+    .topbar {
+      min-height: 106px;
+    }
+
+    .brand {
+      gap: 15px;
+    }
+
+    .mark {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: var(--deck-ink);
+      box-shadow: 0 8px 24px rgba(32, 48, 87, 0.18);
+    }
+
+    .mark::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--deck-blue), var(--deck-indigo));
+    }
+
+    .brand strong {
+      color: var(--deck-ink);
+      font-size: 1.02rem;
+      font-weight: 650;
+    }
+
+    .brand span {
+      color: var(--deck-muted);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .progress-wrap {
+      width: clamp(130px, 18vw, 280px);
+      height: 3px;
+      flex: 0 1 280px;
+      border: 0;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(54, 73, 118, 0.12);
+    }
+
+    .progress {
+      height: 100%;
+      width: 11.11%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--deck-blue), var(--deck-indigo));
+      box-shadow: 0 0 12px rgba(61, 110, 232, 0.35);
+      transition: width 240ms ease;
+    }
+
+    .event-qr {
+      flex: 0 0 auto;
+      gap: 11px;
+      padding: 6px 13px 6px 6px;
+      border-color: rgba(42, 61, 103, 0.16);
+      background: var(--deck-glass);
+      box-shadow: 0 12px 32px rgba(42, 60, 105, 0.1);
+      backdrop-filter: blur(18px);
+    }
+
+    .event-qr img {
+      width: 86px;
+      height: 86px;
+      border-radius: 4px;
+    }
+
+    .event-qr span {
+      width: 116px;
+      max-width: 116px;
+    }
+
+    .event-qr small {
+      color: var(--deck-blue);
+      font-size: 0.66rem;
+      font-weight: 700;
+    }
+
+    .event-qr strong {
+      color: var(--deck-ink);
+      font-size: 0.78rem;
+      line-height: 1.25;
+    }
+
+    .slide {
+      position: relative;
+      isolation: isolate;
+      border-color: var(--deck-line);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow:
+        0 30px 80px rgba(35, 54, 99, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 42px;
+      bottom: 42px;
+      left: 0;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(180deg, var(--deck-blue), var(--deck-indigo));
+      opacity: 0.9;
+    }
+
+    .kicker {
+      gap: 9px;
+      color: var(--deck-blue);
+      font-weight: 700;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      display: inline-block;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--deck-ink);
+    }
+
+    .subtitle,
+    .lead,
+    .quote-line {
+      color: var(--deck-muted);
+    }
+
+    .use-case,
+    .human-job,
+    .mission,
+    .answer-card,
+    .mini-card,
+    .step-detail,
+    .mission-detail,
+    .loop-step,
+    .card,
+    .prompt-card,
+    .timer-card,
+    .list li {
+      border-color: var(--deck-line);
+      background: rgba(248, 249, 252, 0.82);
+    }
+
+    .mission.active,
+    .loop-step.active {
+      border-color: rgba(61, 110, 232, 0.62);
+      background: #edf3ff;
+      box-shadow: inset 0 0 0 1px rgba(61, 110, 232, 0.48);
+    }
+
+    .prompt,
+    .large-url {
+      border-color: rgba(115, 139, 202, 0.34);
+      background: #12141a;
+      box-shadow: 0 12px 30px rgba(42, 71, 148, 0.16);
+    }
+
+    .action-button {
+      border-color: #315bc7;
+      background: linear-gradient(135deg, var(--deck-blue), #5361cf);
+      box-shadow: 0 8px 18px rgba(61, 110, 232, 0.18);
+    }
+
+    .nav-button {
+      border-color: var(--deck-line);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 8px 20px rgba(42, 60, 105, 0.08);
+    }
+
+    #next {
+      border-color: var(--deck-ink);
+      background: var(--deck-ink);
+      color: #ffffff;
+    }
+
+    #next:hover {
+      background: #292b31;
+      color: #ffffff;
+    }
+
+    .dots {
+      min-height: 16px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      transition: width 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .dot.active {
+      width: 24px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--deck-blue), var(--deck-indigo));
+      transform: none;
+    }
+
+    .hint {
+      color: var(--deck-muted);
+      font-weight: 550;
+    }
+
+    @media (max-width: 860px) {
+      .topbar-actions {
+        margin-left: auto;
+      }
+
+      .event-qr img {
+        width: 66px;
+        height: 66px;
+      }
+
+      .slide::before {
+        top: 28px;
+        bottom: 28px;
+      }
+    }
+
+    html {
+      background: #eaf0ff;
+    }
+
+    body,
+    .shell {
+      background-color: #eaf0ff;
+      background-image:
+        linear-gradient(118deg, #dbe9ff 0%, #eef4ff 38%, #e8e8ff 72%, #f8f9fd 100%);
+      background-attachment: fixed;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        height: auto;
+        min-height: 100%;
+      }
+
+      .topbar,
+      .bottombar {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .progress-wrap,
+      .event-qr span,
+      .hint {
+        display: none;
+      }
+
+      .event-qr {
+        padding: 5px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -860,10 +1152,15 @@
           <span>Codex Community Brisbane</span>
         </div>
       </div>
-      <a class="event-qr" href="https://02-codex-workshop.vercel.app/" target="_blank" rel="noreferrer" aria-label="Open the Codex workshop website">
-        <img src="assets/02-codex-workshop-qr.svg" alt="QR code for 02-codex-workshop.vercel.app">
-        <span><small>Scan to open</small><strong>02-codex-workshop.vercel.app</strong></span>
-      </a>
+      <div class="topbar-actions">
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress" id="progress"></div>
+        </div>
+        <a class="event-qr" href="https://brisbane-codex-workshop.peterdchan2017.chatgpt.site/" target="_blank" rel="noreferrer" aria-label="Open the public Codex workshop site">
+          <img src="assets/02-codex-workshop-qr.svg" alt="QR code for the public Codex workshop site">
+          <span><small>Scan to open</small><strong>Public ChatGPT Site</strong></span>
+        </a>
+      </div>
     </header>
 
     <section class="stage" aria-live="polite">
@@ -1048,6 +1345,7 @@ What could break?</pre>
 
   <script>
     const slides = Array.from(document.querySelectorAll(".slide"));
+    const progress = document.querySelector("#progress");
     const count = document.querySelector("#count");
     const dots = document.querySelector("#dots");
     const prev = document.querySelector("#prev");
@@ -1077,6 +1375,7 @@ What could break?</pre>
       dotButtons.forEach((dot, dotIndex) => {
         dot.classList.toggle("active", dotIndex === current);
       });
+      progress.style.width = `${((current + 1) / slides.length) * 100}%`;
       count.textContent = `${current + 1} / ${slides.length}`;
       document.title = `${slides[current].dataset.title} - Recipe Finder Workshop`;
     }
