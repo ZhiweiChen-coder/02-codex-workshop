@@ -870,7 +870,7 @@
     }
 
     .topbar {
-      min-height: 106px;
+      min-height: 132px;
     }
 
     .brand {
@@ -943,8 +943,8 @@
     }
 
     .event-qr img {
-      width: 86px;
-      height: 86px;
+      width: 116px;
+      height: 116px;
       border-radius: 4px;
     }
 
@@ -1096,8 +1096,8 @@
       }
 
       .event-qr img {
-        width: 66px;
-        height: 66px;
+        width: 82px;
+        height: 82px;
       }
 
       .slide::before {
@@ -1116,6 +1116,20 @@
       background-image:
         linear-gradient(118deg, #dbe9ff 0%, #eef4ff 38%, #e8e8ff 72%, #f8f9fd 100%);
       background-attachment: fixed;
+    }
+
+    .stage {
+      overflow: hidden;
+    }
+
+    .slide {
+      height: min(900px, 100%);
+      max-height: 100%;
+    }
+
+    .bottombar {
+      position: relative;
+      z-index: 5;
     }
 
     @media (max-width: 860px) {
@@ -1138,6 +1152,16 @@
 
       .event-qr {
         padding: 5px;
+      }
+
+      .stage {
+        overflow: visible;
+      }
+
+      .slide,
+      .slide.active {
+        height: auto;
+        max-height: none;
       }
     }
   </style>
